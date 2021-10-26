@@ -7,8 +7,8 @@ cd /tmp/rom
 SYNC_START=$(date +"%s")
 
 
-git config --global user.name GeoPD
-git config --global user.email geoemmanuelpd2001@gmail.com
+git config --global user.name shield44
+git config --global user.email motoecondorxt1022@gmail.com
 
 
 # Git cookies
@@ -26,19 +26,18 @@ ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 # Rom repo sync & dt ( Add roms and update case functions )
 rom_one(){
-     repo init --depth=1 --no-repo-verify -u git://github.com/DotOS/manifest.git -b dot11 -g default,-device,-mips,-darwin,-notdefault
-     git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
+     repo init --depth=1 --no-repo-verify -u https://github.com/ArrowOS/android_manifest.git -b arrow-12.0 -g default,-device,-mips,-darwin,-notdefault
+     git clone https://${TOKEN}@github.com/shield44/local_manifests -b $rom .repo/local_manifests
      repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
      export SKIP_ABI_CHECKS=true
-     . build/envsetup.sh && lunch dot_sakura-user
+     . build/envsetup.sh && lunch arrow_olivewood-userdebug
 }
 
 rom_two(){
-     repo init --depth=1 --no-repo-verify -u https://github.com/Octavi-OS/platform_manifest.git -b 11 -g default,-device,-mips,-darwin,-notdefault
-     git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
+     repo init --depth=1 --no-repo-verify -u https://github.com/PixelExtended-Snow/manifest.git -b twelve -g default,-device,-mips,-darwin,-notdefault
+     git clone https://${TOKEN}@github.com/shield44/local_manifests -b $rom .repo/local_manifests
      repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
-     export OCTAVI_BUILD_TYPE=Official OCTAVI_DEVICE_MAINTAINER=GeoPD WITH_GAPPS=true
-     . build/envsetup.sh && lunch octavi_sakura-userdebug
+     . build/envsetup.sh && lunch aosp_olivewood-userdebug
 }
 
 rom_three(){
@@ -53,29 +52,20 @@ rom_three(){
      sed -i '91s/error/warning/g' system/sepolicy/Android.mk
      export SELINUX_IGNORE_NEVERALLOWS=true
      export SKIP_ABI_CHECKS=true
-     source build/envsetup.sh && lunch p404_sakura-user
+     source build/envsetup.sh && lunch p404_olivewood-user
 }
 
 rom_four(){
-     repo init --depth=1 --no-repo-verify -u https://github.com/ResurrectionRemix/platform_manifest.git -b Q -g default,-device,-mips,-darwin,-notdefault
-     git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
+     repo init --depth=1 --no-repo-verify -u git://github.com/DotOS/manifest.git -b dot11 -g default,-device,-mips,-darwin,-notdefault
+     git clone https://${TOKEN}@github.com/shield44/local_manifests -b $rom .repo/local_manifests
      repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
-     sed -i '79 i \\t"ccache":  Allowed,' build/soong/ui/build/paths/config.go
-     export RR_BUILDTYPE=Official
-     . build/envsetup.sh && lunch rr_sakura-userdebug
+     export SKIP_ABI_CHECKS=true
+     . build/envsetup.sh && lunch dot_olivewood-user
 }
 
 rom_five(){
-     repo init --depth=1 --no-repo-verify -u git://github.com/DotOS/manifest.git -b dot11 -g default,-device,-mips,-darwin,-notdefault
-     git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
-     repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
-     export SKIP_ABI_CHECKS=true
-     . build/envsetup.sh && lunch dot_sakura-user
-}
-
-rom_six(){
      repo init --depth=1 --no-repo-verify -u https://github.com/AOSPA/manifest -b ruby -g default,-device,-mips,-darwin,-notdefault
-     git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
+     git clone https://${TOKEN}@github.com/shield44/local_manifests -b $rom .repo/local_manifests
      git config --global url.https://source.codeaurora.org.insteadOf git://codeaurora.org
      curl -L http://source.codeaurora.org/platform/manifest/clone.bundle > /dev/null
      sed -i 's/source.codeaurora.org/oregon.source.codeaurora.org/g' .repo/manifests/default.xml
@@ -83,48 +73,48 @@ rom_six(){
      sed -i '104 i \\t"ccache":  Allowed,' build/soong/ui/build/paths/config.go
      sed -i '199,200d' vendor/pa/build/envsetup.sh
      export SKIP_ABI_CHECKS=true
-     . build/envsetup.sh && lunch pa_sakura-user
+     . build/envsetup.sh && lunch pa_olivewood-user
 }
 
-rom_seven(){
+rom_six(){
      repo init --depth=1 --no-repo-verify -u https://github.com/PotatoProject/manifest -b dumaloo-release
      git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
      repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
      sed -i '79 i \\t"ccache":  Allowed,' build/soong/ui/build/paths/config.go
      export SKIP_ABI_CHECKS=true
-     source build/envsetup.sh && lunch potato_sakura-userdebug
+     source build/envsetup.sh && lunch potato_olivewood-userdebug
 }
 
-rom_eight(){
+rom_seven(){
      repo init --depth=1 --no-repo-verify -u https://github.com/Wave-Project/manifest -b r -g default,-device,-mips,-darwin,-notdefault
      git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
      repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
      sed -i '78 i \\t"ccache":  Allowed,' build/soong/ui/build/paths/config.go
      export SKIP_ABI_CHECKS=true
-     source build/envsetup.sh && lunch wave_sakura-user
+     source build/envsetup.sh && lunch wave_olivewood-user
 }
 
-rom_nine(){
+rom_eight(){
      repo init --depth=1 --no-repo-verify -u https://github.com/ShapeShiftOS/android_manifest.git -b android_11 -g default,-device,-mips,-darwin,-notdefault
-     git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
+     git clone https://${TOKEN}@github.com/shield44/local_manifests -b $rom .repo/local_manifests
      repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
      export SKIP_ABI_CHECKS=true
-     source build/envsetup.sh && lunch ssos_sakura-user
+     source build/envsetup.sh && lunch ssos_olivewood-user
 }
 
 recovery_one(){
      repo init --depth=1 --no-repo-verify -u https://gitlab.com/OrangeFox/Manifest.git -b fox_9.0 -g default,-device,-mips,-darwin,-notdefault
-     git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
+     git clone https://${TOKEN}@github.com/shield44/local_manifests -b $rom .repo/local_manifests
      repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
      export ALLOW_MISSING_DEPENDENCIES=true
-     source build/envsetup.sh && lunch omni_daisa-eng
+     source build/envsetup.sh && lunch omni_olivewood-eng
 }
 
 recovery_two(){
      repo init --depth=1 --no-repo-verify -u https://gitlab.com/OrangeFox/Manifest.git -b fox_9.0 -g default,-device,-mips,-darwin,-notdefault
-     git clone https://${TOKEN}@github.com/geopd/local_manifests -b $rom .repo/local_manifests
+     git clone https://${TOKEN}@github.com/shield44/local_manifests -b $rom .repo/local_manifests
      repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
-     source build/envsetup.sh && lunch omni_daisy-eng
+     source build/envsetup.sh && lunch omni_olivewood-eng
 }
 
 
@@ -147,7 +137,7 @@ telegram_build() {
 
 # Branch name & Head commit sha for ease of tracking
 commit_sha() {
-    for repo in device/xiaomi/${T_DEVICE} vendor/xiaomi kernel/xiaomi/msm8953
+    for repo in device/xiaomi/${T_DEVICE} vendor/xiaomi kernel/xiaomi/olivewood
     do
 	printf "[$(echo $repo | cut -d'/' -f1 )/$(git -C ./$repo/.git rev-parse --short=10 HEAD)]"
     done
@@ -156,23 +146,21 @@ commit_sha() {
 
 # Function to be chose based on rom flag in .yml
 case "${rom}" in
- "dotOS") rom_one
+ "ArrowOS") rom_one
     ;;
- "OctaviOS") rom_two
+ "PixelExtended-Snow") rom_two
     ;;
  "P404") rom_three
     ;;
- "RR") rom_four
+ "dotOS-TEST") rom_four
     ;;
- "dotOS-TEST") rom_five
+ "AOSPA") rom_five
     ;;
- "AOSPA") rom_six
+ "POSP") rom_six
     ;;
- "POSP") rom_seven
+ "WaveOS") rom_seven
     ;;
- "WaveOS") rom_eight
-    ;;
- "SSOS") rom_nine
+ "SSOS") rom_eight
     ;;
  "OFOX") recovery_one
     ;;
@@ -213,13 +201,11 @@ ccache -z
 
 # Build commands for each roms on basis of rom flag in .yml / an additional full build.log is kept.
 case "${rom}" in
- "dotOS") make bacon -j18 2>&1 | tee build.log
+ "ArrowOS") m bacon -j18 2>&1 | tee build.log
     ;;
- "OctaviOS") mka octavi -j18 2>&1 | tee build.log
+ "PixelExtended-Snow") mka bacon -j18 2>&1 | tee build.log
     ;;
  "P404") m p404 -j18 2>&1 | tee build.log
-    ;;
- "RR") mka bacon -j18 2>&1 | tee build.log
     ;;
  "dotOS-TEST") make bacon -j18 2>&1 | tee build.log
     ;;

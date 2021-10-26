@@ -27,8 +27,10 @@ ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 # Rom repo sync & dt ( Add roms and update case functions )
 rom_one(){
      repo init --depth=1 --no-repo-verify -u https://github.com/ArrowOS/android_manifest.git -b arrow-12.0 -g default,-device,-mips,-darwin,-notdefault
-     git clone https://${TOKEN}@github.com/shield44/local_manifests -b $rom .repo/local_manifests
      repo sync -c --no-clone-bundle --no-tags --optimized-fetch --force-sync -j$(nproc --all)
+     git clone https://${TOKEN}@github.com/shield44/device_xiaomi-olivewood device/xiaomi/olivewood
+     git clone https://${TOKEN}@github.com/shield44/vendor_xiaomi-olivewood vendor/xiaomi/olivewood
+     git clone https://github.com/xiaomi-sdm439-devs/android_kernel_xiaomi_sdm439 kernel/xiaomi/olivewood
      export SKIP_ABI_CHECKS=true
      . build/envsetup.sh && lunch arrow_olivewood-userdebug
 }
